@@ -52,7 +52,7 @@ public class IssueBookPanel extends JPanel {
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER;
         add(issueButton, gbc);
 
-        // Action Listener with DB logic
+        // Action Listener with improved DB logic
         issueButton.addActionListener(e -> {
             String roll = rollField.getText().trim();
             String bookId = bookIdField.getText().trim();
@@ -63,14 +63,38 @@ public class IssueBookPanel extends JPanel {
             }
 
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/seminar_library", "root", "nusrat")) {
-                String query = "INSERT INTO issued_books (student_roll, book_id) VALUES (?, ?)";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, roll);
-                ps.setString(2, bookId);
 
-                int rows = ps.executeUpdate();
+                // Step 1: Check if book exists and quantity > 0
+                String checkQuery = "SELECT quantity FROM books WHERE id = ?";
+                PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+                checkStmt.setString(1, bookId);
+                ResultSet rs = checkStmt.executeQuery();
+
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Book ID does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int quantity = rs.getInt("quantity");
+                if (quantity <= 0) {
+                    JOptionPane.showMessageDialog(this, "Book not available (Out of stock).", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Step 2: Issue book to student
+                String issueQuery = "INSERT INTO issued_books (student_roll, book_id) VALUES (?, ?)";
+                PreparedStatement issueStmt = conn.prepareStatement(issueQuery);
+                issueStmt.setString(1, roll);
+                issueStmt.setString(2, bookId);
+                int rows = issueStmt.executeUpdate();
 
                 if (rows > 0) {
+                    // Step 3: Update quantity in books table
+                    String updateQtyQuery = "UPDATE books SET quantity = quantity - 1 WHERE id = ?";
+                    PreparedStatement updateStmt = conn.prepareStatement(updateQtyQuery);
+                    updateStmt.setString(1, bookId);
+                    updateStmt.executeUpdate();
+
                     JOptionPane.showMessageDialog(this, "Book issued successfully!");
                     rollField.setText("");
                     bookIdField.setText("");

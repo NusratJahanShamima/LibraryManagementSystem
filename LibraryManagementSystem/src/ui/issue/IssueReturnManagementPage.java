@@ -1,5 +1,6 @@
 package ui.issue;
 
+import ui.books.ViewBooksPanel;
 import ui.dashboard.DashboardPage;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class IssueReturnManagementPage extends JFrame {
                 "Return Book",
                 "View Issued Books",
                 "View Returned History",
+                "View All Books",
                 "Back to Dashboard"
         };
 
@@ -66,6 +68,9 @@ public class IssueReturnManagementPage extends JFrame {
                     case "View Returned History":
                         cardLayout.show(rightPanel, "returned");
                         break;
+                    case "View All Books":
+                        cardLayout.show(rightPanel, "viewBooks");
+                        break;
                     case "Back to Dashboard":
                         dispose();
                         new DashboardPage();
@@ -74,16 +79,18 @@ public class IssueReturnManagementPage extends JFrame {
             });
         }
 
-        // Left side changing panel
+        // Left side dynamic content panel
         rightPanel = new JPanel();
         cardLayout = new CardLayout();
         rightPanel.setLayout(cardLayout);
         rightPanel.setOpaque(false);
 
+        // Add all cards
         rightPanel.add(new IssueBookPanel(), "issue");
         rightPanel.add(new ReturnBookPanel(), "return");
         rightPanel.add(new ViewIssuedBooksPanel(), "issued");
         rightPanel.add(new ViewReturnedHistoryPanel(), "returned");
+        rightPanel.add(new ViewBooksPanel(), "viewBooks"); // ✅ Existing panel used here
 
         backgroundPanel.add(rightPanel, BorderLayout.CENTER);
         backgroundPanel.add(rightButtonPanel, BorderLayout.EAST);

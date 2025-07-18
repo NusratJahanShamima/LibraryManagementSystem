@@ -51,7 +51,6 @@ public class ReturnBookPanel extends JPanel {
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER;
         add(returnButton, gbc);
 
-        // Action Listener with DB logic
         returnButton.addActionListener(e -> {
             String roll = rollField.getText().trim();
             String bookId = bookIdField.getText().trim();
@@ -62,7 +61,8 @@ public class ReturnBookPanel extends JPanel {
             }
 
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/seminar_library", "root", "nusrat")) {
-                // Step 1: Check if book was issued
+
+                // Step 1: Check if this book was issued to this student
                 String selectQuery = "SELECT * FROM issued_books WHERE student_roll = ? AND book_id = ?";
                 PreparedStatement psSelect = conn.prepareStatement(selectQuery);
                 psSelect.setString(1, roll);
@@ -76,9 +76,9 @@ public class ReturnBookPanel extends JPanel {
 
                 Timestamp issueDate = rs.getTimestamp("issue_date");
 
-                // Step 2: Insert into returned_books table
-                String insertReturn = "INSERT INTO returned_books (student_roll, book_id, issue_date, return_date) VALUES (?, ?, ?, ?)";
-                PreparedStatement psInsert = conn.prepareStatement(insertReturn);
+                // Step 2: Insert into returned_books
+                String insertQuery = "INSERT INTO returned_books (student_roll, book_id, issue_date, return_date) VALUES (?, ?, ?, ?)";
+                PreparedStatement psInsert = conn.prepareStatement(insertQuery);
                 psInsert.setString(1, roll);
                 psInsert.setString(2, bookId);
                 psInsert.setTimestamp(3, issueDate);
@@ -92,9 +92,14 @@ public class ReturnBookPanel extends JPanel {
                 psDelete.setString(2, bookId);
                 psDelete.executeUpdate();
 
-                JOptionPane.showMessageDialog(this, "Book returned successfully!");
+                // ✅ Step 4: Update book quantity (increment by 1)
+                String updateQtyQuery = "UPDATE books SET quantity = quantity + 1 WHERE id = ?";
+                PreparedStatement psUpdateQty = conn.prepareStatement(updateQtyQuery);
+                psUpdateQty.setString(1, bookId);
+                psUpdateQty.executeUpdate();
 
-                // Clear fields
+                // ✅ Done
+                JOptionPane.showMessageDialog(this, "Book returned successfully!");
                 rollField.setText("");
                 bookIdField.setText("");
 
