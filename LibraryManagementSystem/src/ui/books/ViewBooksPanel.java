@@ -3,7 +3,9 @@ package ui.books;
 import db.DBConnection;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,10 +26,9 @@ public class ViewBooksPanel extends JPanel {
         add(headingLabel, BorderLayout.NORTH);
 
         // Table columns
-        String[] columns = {"Book Title", "Author", "Subject", "Quantity"};
+        String[] columns = {"Book ID", "Book Title", "Author", "Subject", "Quantity"};
 
         tableModel = new DefaultTableModel(columns, 0) {
-            // Make table cells non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -38,15 +39,23 @@ public class ViewBooksPanel extends JPanel {
         booksTable.setFont(new Font("SansSerif", Font.PLAIN, 16));
         booksTable.setRowHeight(24);
 
-        // Table header styling
+        // Header style
         booksTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
         booksTable.getTableHeader().setBackground(Color.DARK_GRAY);
         booksTable.getTableHeader().setForeground(Color.WHITE);
 
-        // Table background & grid colors
+        // Table style
         booksTable.setBackground(new Color(30, 30, 30));
         booksTable.setForeground(Color.WHITE);
         booksTable.setGridColor(Color.GRAY);
+
+        // Set specific column widths
+        DefaultTableColumnModel columnModel = (DefaultTableColumnModel) booksTable.getColumnModel();
+        TableColumn idColumn = columnModel.getColumn(0); // Book ID
+        idColumn.setPreferredWidth(60);  // Narrow width
+
+        TableColumn titleColumn = columnModel.getColumn(1); // Book Title
+        titleColumn.setPreferredWidth(300);  // Wider for full title
 
         JScrollPane scrollPane = new JScrollPane(booksTable);
         add(scrollPane, BorderLayout.CENTER);
@@ -60,15 +69,16 @@ public class ViewBooksPanel extends JPanel {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM books");
 
-            tableModel.setRowCount(0); // clear existing rows
+            tableModel.setRowCount(0); // Clear old rows
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String subject = rs.getString("subject");
                 int quantity = rs.getInt("quantity");
 
-                Object[] row = {title, author, subject, quantity};
+                Object[] row = {id, title, author, subject, quantity};
                 tableModel.addRow(row);
             }
 

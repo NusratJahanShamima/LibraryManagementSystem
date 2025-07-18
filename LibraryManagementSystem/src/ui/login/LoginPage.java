@@ -89,20 +89,36 @@ public class LoginPage extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         loginPanel.add(passwordField, gbc);
 
-        // Login Button
+        // Login + Cancel buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        buttonPanel.setOpaque(false);
+
         loginButton = new JButton("Login");
         loginButton.setFont(new Font("Serif", Font.BOLD, 22));
         loginButton.setBackground(new Color(0, 128, 0));
         loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
+        buttonPanel.add(loginButton);
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setFont(new Font("Serif", Font.BOLD, 22));
+        cancelButton.setBackground(new Color(128, 0, 0));
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setFocusPainted(false);
+        buttonPanel.add(cancelButton);
+
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        loginPanel.add(loginButton, gbc);
+        loginPanel.add(buttonPanel, gbc);
 
-        loginButton.addActionListener(e -> doLogin());
-
+        // Add to main layout
         add(loginPanel);
+
+        // Button actions
+        loginButton.addActionListener(e -> doLogin());
+        cancelButton.addActionListener(e -> System.exit(0));
     }
 
     private void doLogin() {
