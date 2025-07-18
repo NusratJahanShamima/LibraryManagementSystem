@@ -1,6 +1,7 @@
 package ui.dashboard;
 
 import ui.books.BookManagementPage;
+import ui.reports.ReportsPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class DashboardPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Load background using ImageIcon (smooth scaling)
-        backgroundImage = new ImageIcon("src/assets/img/book.jpg").getImage();
+        backgroundImage = new ImageIcon("src/assets/img/Dash.jpg").getImage();
 
         // Custom JPanel with background image
         JPanel backgroundPanel = new JPanel() {
@@ -58,39 +59,38 @@ public class DashboardPage extends JFrame {
             btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             buttonPanel.add(btn);
 
-            // Add action listener for Book Management button
-            if (text.equals("Book Management")) {
-                btn.addActionListener(e -> {
-                    new BookManagementPage();  // Open BookManagementPage
-                    dispose();                // Close Dashboard
-                });
+            switch (text) {
+                case "Book Management":
+                    btn.addActionListener(e -> {
+                        new BookManagementPage();
+                        dispose();
+                    });
+                    break;
+                case "Student/User Management":
+                    btn.addActionListener(e -> {
+                        new ui.students.StudentManagementPage();
+                        dispose();
+                    });
+                    break;
+                case "Issue / Return Management":
+                    btn.addActionListener(e -> {
+                        new ui.issue.IssueReturnManagementPage();
+                        dispose();
+                    });
+                    break;
+                case "Reports":
+                    btn.addActionListener(e -> {
+                        new ReportsPage(); // ✅ This opens your reports panel
+                        dispose();
+                    });
+                    break;
+                case "Logout":
+                    btn.addActionListener(e -> {
+                        dispose();
+                        new ui.login.LoginPage();
+                    });
+                    break;
             }
-
-            if (text.equals("Logout")) {
-                btn.addActionListener(e -> {
-                    dispose();
-                    new ui.login.LoginPage();
-                });
-            }
-
-            if (text.equals("Student/User Management")) {
-                btn.addActionListener(e -> {
-                    new ui.students.StudentManagementPage();  // এই লাইনেই তোমার Student/User Management page launch হবে
-                    dispose();  // Dashboard বন্ধ হয়ে যাবে
-                });
-            }
-
-
-            if (text.equals("Issue / Return Management")) {
-                btn.addActionListener(e -> {
-                    new ui.issue.IssueReturnManagementPage();  // Issue/Return page launch
-                    dispose();  // Dashboard বন্ধ হবে
-                });
-            }
-
-
-
-            // TODO: Add other buttons' action listeners later (Student/User Management, Logout, etc.)
         }
 
         // Center wrapper for alignment

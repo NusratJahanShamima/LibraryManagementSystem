@@ -15,7 +15,7 @@ public class BookManagementPage extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         // Load background image
-        backgroundImage = new ImageIcon("src/assets/img/bs.jpg").getImage();
+        backgroundImage = new ImageIcon("src/assets/img/Orange.jpg").getImage();
 
         // Custom background panel
         JPanel backgroundPanel = new JPanel() {

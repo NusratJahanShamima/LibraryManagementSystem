@@ -17,7 +17,7 @@ public class IssueReturnManagementPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Background image
-        Image backgroundImage = new ImageIcon("src/assets/img/testing.jpg").getImage();
+        Image backgroundImage = new ImageIcon("src/assets/img/Orange.jpg").getImage();
 
         JPanel backgroundPanel = new JPanel() {
             protected void paintComponent(Graphics g) {

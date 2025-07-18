@@ -16,7 +16,7 @@ public class StudentManagementPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Load background image
-        Image backgroundImage = new ImageIcon("src/assets/img/bg_dashboard.jpg").getImage();
+        Image backgroundImage = new ImageIcon("src/assets/img/Yellow.jpg").getImage();
 
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
