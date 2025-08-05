@@ -36,7 +36,7 @@ public class StudentManagementPage extends JFrame {
                 "Add New Student",
                 "View All Students",
                 "Search Student",
-                "⬅ Back to Dashboard"
+                "Back to Dashboard"
         };
 
         Font buttonFont = new Font("SansSerif", Font.BOLD, 20);
@@ -76,7 +76,7 @@ public class StudentManagementPage extends JFrame {
                     case "Search Student":
                         cardLayout.show(rightPanel, "search");
                         break;
-                    case "⬅ Back to Dashboard":
+                    case "Back to Dashboard":
                         dispose();
                         new DashboardPage(); // back to main dashboard
                         break;

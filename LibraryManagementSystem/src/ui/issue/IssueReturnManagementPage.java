@@ -90,7 +90,7 @@ public class IssueReturnManagementPage extends JFrame {
         rightPanel.add(new ReturnBookPanel(), "return");
         rightPanel.add(new ViewIssuedBooksPanel(), "issued");
         rightPanel.add(new ViewReturnedHistoryPanel(), "returned");
-        rightPanel.add(new ViewBooksPanel(), "viewBooks"); // ✅ Existing panel used here
+        rightPanel.add(new ViewBooksPanel(), "viewBooks"); //  Existing panel used here
 
         backgroundPanel.add(rightPanel, BorderLayout.CENTER);
         backgroundPanel.add(rightButtonPanel, BorderLayout.EAST);

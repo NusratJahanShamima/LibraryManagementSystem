@@ -46,12 +46,12 @@ public class BookManagementPage extends JFrame {
             JButton button = new JButton(label);
 
             // Set icon (optional)
-            String iconPath = "src/assets/img/icon.png";
+            /*String iconPath = "src/assets/img/icon.png";
             if (new File(iconPath).exists()) {
                 ImageIcon icon = new ImageIcon(iconPath);
                 Image scaledIcon = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
                 button.setIcon(new ImageIcon(scaledIcon));
-            }
+            }*/
 
             button.setFont(new Font("SansSerif", Font.BOLD, 20));
             button.setBackground(new Color(30, 30, 30));

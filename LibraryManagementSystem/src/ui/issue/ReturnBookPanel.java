@@ -92,13 +92,13 @@ public class ReturnBookPanel extends JPanel {
                 psDelete.setString(2, bookId);
                 psDelete.executeUpdate();
 
-                // ✅ Step 4: Update book quantity (increment by 1)
+                // Step 4: Update book quantity (increment by 1)
                 String updateQtyQuery = "UPDATE books SET quantity = quantity + 1 WHERE id = ?";
                 PreparedStatement psUpdateQty = conn.prepareStatement(updateQtyQuery);
                 psUpdateQty.setString(1, bookId);
                 psUpdateQty.executeUpdate();
 
-                // ✅ Done
+                // Done
                 JOptionPane.showMessageDialog(this, "Book returned successfully!");
                 rollField.setText("");
                 bookIdField.setText("");

@@ -24,7 +24,7 @@ public class LoginPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         try {
-            backgroundImage = ImageIO.read(new File("src/assets/img/hg.jpg")); // Centered, not zoomed image
+            backgroundImage = ImageIO.read(new File("src/assets/img/hg.jpg")); // Centered,
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class LoginPage extends JFrame {
 
     private void initComponents() {
         JPanel loginPanel = new JPanel(new GridBagLayout());
-        loginPanel.setOpaque(false); // Transparent login panel
+        loginPanel.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 15, 15, 15);

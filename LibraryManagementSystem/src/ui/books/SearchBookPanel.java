@@ -16,14 +16,14 @@ public class SearchBookPanel extends JPanel {
     private DefaultTableModel tableModel;
 
     public SearchBookPanel() {
-        setLayout(new BorderLayout(0, 10)); // উপরে ও নীচে একটু গ্যাপ দিবো
+        setLayout(new BorderLayout(0, 10));
         setOpaque(false);
 
-        // Heading + Search Panel একসাথে রাখতে একটি panel ব্যবহার করবো
+
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         topPanel.setOpaque(false);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10)); // উপরে-বামে-নিচে-ডানে প্যাডিং
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
 
         JLabel headingLabel = new JLabel("Search Book by Title", SwingConstants.CENTER);
         headingLabel.setFont(new Font("Serif", Font.BOLD, 32));
@@ -51,7 +51,6 @@ public class SearchBookPanel extends JPanel {
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
 
-        // topPanel এ heading এবং searchPanel যোগ করা
         topPanel.add(headingLabel);
         topPanel.add(searchPanel);
 
@@ -74,7 +73,7 @@ public class SearchBookPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(resultsTable);
         scrollPane.setPreferredSize(new Dimension(800, 300));
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10)); // টেবিলের চারপাশে সামান্য স্পেস
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
         add(scrollPane, BorderLayout.CENTER);
     }

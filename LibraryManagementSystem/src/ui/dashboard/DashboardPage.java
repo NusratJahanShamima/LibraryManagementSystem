@@ -52,7 +52,7 @@ public class DashboardPage extends JFrame {
         for (String text : buttons) {
             JButton btn = new JButton(text);
             btn.setFont(new Font("Serif", Font.BOLD, 33));
-            setBackground(Color.BLACK);
+            //setBackground(Color.BLACK);
             btn.setForeground(Color.BLACK);
             btn.setFocusPainted(false);
             btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
@@ -80,7 +80,7 @@ public class DashboardPage extends JFrame {
                     break;
                 case "Reports":
                     btn.addActionListener(e -> {
-                        new ReportsPage(); // ✅ This opens your reports panel
+                        new ReportsPage(); //  This opens  reports panel
                         dispose();
                     });
                     break;

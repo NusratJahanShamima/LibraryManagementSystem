@@ -11,7 +11,6 @@ public class DBConnection {
 
     public static Connection getConnection() {
         try {
-            // MySQL JDBC Driver Automatically Loaded (no need to Class.forName anymore)
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
